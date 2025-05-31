@@ -1,26 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>WhatsApp Rápido</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
   <!-- Meta para Web App no iPhone -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="WhatsApp Rápido">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="WhatsApp Rápido" />
+
+  <!-- Favicon e apple-touch-icon via URL -->
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" />
 
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f2f2f2;
+    html, body {
       margin: 0;
-      padding: 20px;
+      padding: 0;
+      height: 100%;
+      overflow: hidden; /* Evita scroll desnecessário */
+      -webkit-overflow-scrolling: touch;
+      background: #f2f2f2;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 20px;
       height: 100vh;
+      box-sizing: border-box;
     }
 
     h2 {
@@ -32,9 +44,11 @@
       background: white;
       padding: 20px;
       border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       width: 100%;
       max-width: 350px;
+      box-sizing: border-box;
+      overflow: visible; /* garantir conteúdo visível */
     }
 
     label {
@@ -43,7 +57,8 @@
       font-weight: 600;
     }
 
-    input, textarea {
+    input,
+    textarea {
       width: 100%;
       padding: 10px;
       font-size: 16px;
@@ -52,6 +67,12 @@
       margin-bottom: 16px;
       box-sizing: border-box;
       resize: vertical;
+    }
+
+    textarea {
+      min-height: 100px;
+      max-height: 150px;
+      overflow-y: auto;
     }
 
     button {
@@ -90,11 +111,11 @@
   <h2>WhatsApp Rápido</h2>
 
   <form onsubmit="sendWhatsApp(event)">
-    <label for="phone">Número (DDI + DDD + número):</label>
-    <input type="tel" id="phone" placeholder="Ex: 5511999998888" required>
+    <label for="phone">Número (DDD + número, opcional DDI):</label>
+    <input type="tel" id="phone" placeholder="Ex: 11999998888 ou 5511999998888" required />
 
     <label for="message">Mensagem:</label>
-    <textarea id="message" rows="4" placeholder="Digite sua mensagem aqui..." required>Olá! Esta é uma mensagem de teste.</textarea>
+    <textarea id="message" rows="4" placeholder="Digite sua mensagem aqui..." required></textarea>
 
     <button type="submit">Enviar no WhatsApp</button>
   </form>
@@ -107,12 +128,20 @@
   <script>
     function sendWhatsApp(event) {
       event.preventDefault();
-      const phone = document.getElementById('phone').value.trim();
+      let phone = document.getElementById('phone').value.trim();
       const message = document.getElementById('message').value.trim();
 
-      if (!phone.match(/^\d+$/)) {
-        alert("Digite apenas números (DDI + DDD + número).");
+      // Remove tudo que não for dígito
+      phone = phone.replace(/\D/g, '');
+
+      if (phone.length < 10) {
+        alert("Digite um número válido com DDD e número.");
         return;
+      }
+
+      // Se não houver DDI (mais que 10 dígitos no total), adiciona 55 por padrão
+      if (phone.length === 10 || phone.length === 11) {
+        phone = '55' + phone;
       }
 
       if (message.length === 0) {
