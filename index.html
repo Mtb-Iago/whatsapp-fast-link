@@ -128,20 +128,37 @@
     <button type="submit">Enviar no WhatsApp</button>
   </form>
 
-  <div class="footer">
-    Desenvolvido para uso pessoal 📱
-    <div class="brand">
-      <a
+   <div class="footer">
+  Desenvolvido com 💚 por <a
         href="https://wa.me/5577988162530?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20sobre%20o%20app%20de%20links%20do%20WhatsApp."
         target="_blank"
         rel="noopener noreferrer"
         >Nyabinghi Technology</a
-      >
+      >  
+  <div class="brand">WhatsApp Fast Link</div>
+  <div style="margin-top: 12px; font-size: 13px;">
+    💰 Quer apoiar este projeto?  
+    <div style="margin-top: 5px;">
+      Chave Pix: <strong id="pixKey" style="color: #25d366;">42247709000136</strong>
+      <button onclick="copyPix()" style="margin-left: 8px; padding: 4px 10px; border: none; background-color: #25d366; color: white; border-radius: 6px; font-size: 12px; cursor: pointer;">
+        Copiar
+      </button>
     </div>
+    <div id="copyMsg" style="font-size: 11px; color: #4CAF50; margin-top: 4px; display: none;">Chave Pix copiada! ✅</div>
   </div>
+</div>
 
-  <script>
-    function sendWhatsApp(event) {
+<script>
+  function copyPix() {
+    const pixKey = document.getElementById('pixKey').textContent;
+    navigator.clipboard.writeText(pixKey).then(() => {
+      const msg = document.getElementById('copyMsg');
+      msg.style.display = 'block';
+      setTimeout(() => msg.style.display = 'none', 2000);
+    });
+  }
+
+  function sendWhatsApp(event) {
       event.preventDefault();
       let phone = document.getElementById('phone').value.trim();
       const message = document.getElementById('message').value.trim();
