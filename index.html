@@ -10,8 +10,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="WhatsApp Rápido" />
 
-  <!-- Favicon e apple-touch-icon via URL -->
-  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" type="image/svg+xml" />
+  <!-- Favicon e apple-touch-icon com links PNG confiáveis -->
+  <link rel="icon" type="image/png" sizes="32x32" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" />
   <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" />
 
   <style>
@@ -19,7 +19,7 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden; /* Evita scroll desnecessário */
+      overflow: hidden;
       -webkit-overflow-scrolling: touch;
       background: #f2f2f2;
       font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -48,7 +48,7 @@
       width: 100%;
       max-width: 350px;
       box-sizing: border-box;
-      overflow: visible; /* garantir conteúdo visível */
+      overflow: visible;
     }
 
     label {
@@ -104,6 +104,14 @@
       color: #333;
       font-weight: bold;
     }
+
+    .brand a {
+      color: #333;
+      text-decoration: none;
+    }
+    .brand a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -112,7 +120,7 @@
 
   <form onsubmit="sendWhatsApp(event)">
     <label for="phone">Número (DDD + número, opcional DDI):</label>
-    <input type="tel" id="phone" placeholder="Ex: 11999998888" required />
+    <input type="tel" id="phone" placeholder="Ex: 11999998888 ou 5511999998888" required />
 
     <label for="message">Mensagem:</label>
     <textarea id="message" rows="4" placeholder="Digite sua mensagem aqui..."></textarea>
@@ -122,7 +130,14 @@
 
   <div class="footer">
     Desenvolvido para uso pessoal 📱
-    <div class="brand">Nyabinghi Technology</div>
+    <div class="brand">
+      <a
+        href="https://wa.me/5577988162530?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20sobre%20o%20app%20de%20links%20do%20WhatsApp."
+        target="_blank"
+        rel="noopener noreferrer"
+        >Nyabinghi Technology</a
+      >
+    </div>
   </div>
 
   <script>
@@ -131,7 +146,6 @@
       let phone = document.getElementById('phone').value.trim();
       const message = document.getElementById('message').value.trim();
 
-      // Remove tudo que não for dígito
       phone = phone.replace(/\D/g, '');
 
       if (phone.length < 10) {
@@ -139,18 +153,12 @@
         return;
       }
 
-      // Se não houver DDI (mais que 10 dígitos no total), adiciona 55 por padrão
       if (phone.length === 10 || phone.length === 11) {
         phone = '55' + phone;
       }
 
-      if (message.length === 0) {
-        alert("Digite uma mensagem.");
-        return;
-      }
-
       const encodedMessage = encodeURIComponent(message);
-      const url = `https://wa.me/${phone}?text=${encodedMessage}`;
+      const url = `https://wa.me/${phone}${message ? `?text=${encodedMessage}` : ''}`;
       window.location.href = url;
     }
   </script>
