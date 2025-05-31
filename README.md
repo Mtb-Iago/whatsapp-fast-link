@@ -43,7 +43,7 @@ This project can be easily hosted on free services like [Vercel](https://vercel.
 
 ## Contact
 
-Developed by Nyabing Technology.
+Developed by Nyabinghi Technology.
 
 ---
 
