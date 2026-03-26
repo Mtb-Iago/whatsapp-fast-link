@@ -18,11 +18,7 @@ function sendWhatsApp(event) {
     alert("Digite um número válido com DDD e número.");
     return;
   }
-
-  /*if (phone.length === 10 || phone.length === 11) {
-    phone = '55' + phone;
-  }*/
-
+  
   const encodedMessage = encodeURIComponent(message);
   const url = `https://wa.me/${phone}${message ? `?text=${encodedMessage}` : ''}`;
   window.location.href = url;
@@ -30,7 +26,7 @@ function sendWhatsApp(event) {
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('public/sw.js')
+    navigator.serviceWorker.register('./assets/js/sw.js')
       .then(() => console.log('PWA ativo'))
       .catch(err => console.log('Erro SW:', err));
   });
