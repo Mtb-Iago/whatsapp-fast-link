@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>WhatsApp Rápido</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <!-- Meta para Web App no iPhone -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="WhatsApp Rápido" />
+
+  <link rel="manifest" href="public/manifest.json">
+  <meta name="theme-color" content="#22c55e">
+  <!-- Favicon e apple-touch-icon com links PNG confiáveis -->
+  <link rel="icon" type="image/png" sizes="32x32" href="public/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="public/icons/icon-192.png" />
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://unpkg.com/libphonenumber-js/bundle/libphonenumber-js.min.js"></script>
+</head>
+
+<body>
+
+  <h2>WhatsApp Rápido</h2>
+
+  <form onsubmit="sendWhatsApp(event)">
+    <label for="phone">Número (DDD + número, opcional DDI):</label>
+    <input type="text" placeholder="Ex: 11999998888 ou 5511999998888" id="phone" oninput="formatPhone(this)" required />
+    <label for="message">Mensagem:</label>
+    <textarea id="message" rows="4" placeholder="Digite sua mensagem aqui..."></textarea>
+
+    <button type="submit">Enviar no WhatsApp</button>
+  </form>
+
+  <div class="footer">
+    Desenvolvido com 💚 por <a
+      href="https://wa.me/5577988162530?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20sobre%20o%20app%20de%20links%20do%20WhatsApp."
+      target="_blank" rel="noopener noreferrer">Nyabinghi Technology</a>
+    <div class="brand">WhatsApp Fast Link</div>
+    <div style="margin-top: 12px; font-size: 13px;">
+      💰 Quer apoiar este projeto?
+      <div style="margin-top: 5px;">
+        Chave Pix: <strong id="pixKey" style="color: #25d366;">c1079609-7e05-4f98-804f-b786017aecfc</strong>
+        <button onclick="copyPix()"
+          style="margin-left: 8px; padding: 4px 10px; border: none; background-color: #25d366; color: white; border-radius: 6px; font-size: 12px; cursor: pointer;">
+          Copiar
+        </button>
+      </div>
+      <div id="copyMsg" style="font-size: 11px; color: #4CAF50; margin-top: 4px; display: none;">Chave Pix copiada! ✅
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/script.js"></script>
+</body>
+
+</html>
